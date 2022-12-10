@@ -16,6 +16,10 @@ from rest_framework import permissions
 from .serializers import UserSerializer, CarInfoSerializer
 from .models import CarInfo
 
+# pytesseract imports
+from PIL import Image
+from pytesseract import pytesseract
+
 
 def get_csrf(request):
     response = JsonResponse({"Info": "Success - Set CSRF cookie"})
@@ -72,3 +76,34 @@ class CarDetails(APIView):
         return Response({"info": "Enter a valid car number"}, status=400)
         
         
+# C:\Program Files\Tesseract-OCR\tesseract.exe
+class OCR(APIView):
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @staticmethod
+    def post(request, format=None):
+        
+        data = request.data
+        print(data.get("image"))
+        
+        if data.get("image") is not None:
+            # Define path to tessaract.exe
+            path_to_tesseract = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+            # Define path to image
+            path_to_image = data.get("image")
+            # Point tessaract_cmd to tessaract.exe
+            pytesseract.tesseract_cmd = path_to_tesseract
+            # Open image with PIL
+            img = Image.open(path_to_image)
+            # Extract text from image
+            text = pytesseract.image_to_string(img)
+            print(text)
+            if text is not None:
+                data = get_object_or_404(CarInfo, car_number=request.data.get("car_number"))
+                serializer = CarInfoSerializer(data)
+                return Response(serializer.data)
+            
+            return Response({"info": "No text found"}, status=400)
+        
+        return Response({"info": "Enter a valid image path"}, status=400)

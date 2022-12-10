@@ -9,5 +9,6 @@ urlpatterns = [
     path("login/", views.loginView, name="api-login"),
     path("userInfo/", views.userInfo.as_view(), name="userInfo"),
     path("CarDetails/", views.CarDetails.as_view(), name="CarDetails"),
+    path("OCR/", views.OCR.as_view(), name="OCR"),
 ]
  
