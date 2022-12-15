@@ -13,7 +13,7 @@ SECRET_KEY = "prn3z&93yo@u@9nypg_ya(tgqo5)-(nlz+y*$vz=@wurp&eeh+"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['8381-102-176-94-114.ngrok.io', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -126,6 +126,7 @@ SESSION_COOKIE_HTTPONLY = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://8381-102-176-94-114.ngrok.io"
 ]
 CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
 CORS_ALLOW_CREDENTIALS = True

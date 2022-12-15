@@ -22,7 +22,8 @@ class CarInfo(models.Model):
     
 class reportedCar(models.Model):
     car_number = models.ForeignKey(CarInfo, on_delete=models.CASCADE)
-    reported_issue = models.CharField(max_length=50)
+    reported_issue = models.CharField(max_length=100)
+    reported_by = models.CharField(max_length=50, blank=True, null=True, default="Godwin Owusu")
     reported_date = models.DateTimeField(auto_now=True)
     date_updated = models.DateTimeField(auto_now_add=True)
     

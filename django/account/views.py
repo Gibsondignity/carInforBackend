@@ -1,5 +1,4 @@
 import json
-
 from django.contrib.auth import authenticate, login
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
